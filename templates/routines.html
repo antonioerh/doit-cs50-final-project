@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Routines - Striation
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="mx-auto">
+            <a class="btn btn-dark" href="routines_create.html">Create new</a>
+        </div>
+    {% if routines %}
+        <div>
+            {% for routine in routines %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ routines.name }}</h5>
+                            <p class="card-text mb-1">{{ routines.notes }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted mt-3">No routines yet.</p>
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile - Striation
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h3 class="fw-normal">Profile details</h3>
+    </div>
+    
+    <div class="container py-4 d-flex">
+        <form action="/profile" method="post">
+        
+            <div class="mb-3">
+                <h6 class="fw-normal">Email address</h6>
+                <input class="form-control" name="email" type="email" value="{{ users.email }}">
+            </div>
+
+            <div class="mb-3">
+                <h6 class="fw-normal">Username</h6>
+                <input class="form-control" name="username" type="text" value="{{ users.username }}">
+            </div>
+
+            <div class="mb-3">
+                <h6 class="fw-normal">Birth (YYYY-MM-DD)</h6>
+                <input class="form-control" name="birth" type="text" value="{% if users.birth == None %}{% else %}{{ users.birth }}{% endif %}">
+            </div>
+
+            <div class="mb-3">
+                <h6 class="fw-normal">Password (Required)</h6>
+                <input class="form-control" name="password" type="password">
+            </div>
+
+            <div class="mb-3">
+                <h6 class="fw-normal">New password</h6>
+                <input class="form-control" name="new_password" type="password">
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

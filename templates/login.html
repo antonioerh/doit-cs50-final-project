@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign in - Striation
+{% endblock %}
+
+
+{% block main %}
+    <div class="container py-5 d-flex justify-content-center">
+        <form action="/login" method="post">
+            <h1 class="h3 my-4 fw-normal">Sign in</h1>
+            <div class="mb-3 form-floating">
+                <input class="form-control mx-auto w-auto" name="identifier" placeholder="Email or username" required type="text">
+                <label for="floatingInput">Email or username</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input class="form-control mx-auto w-auto" name="password" placeholder="Password" required type="password">
+                <label for="floatingInput">Password</label>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark" type="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+    

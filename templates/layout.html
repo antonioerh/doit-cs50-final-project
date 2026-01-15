@@ -17,55 +17,50 @@
     </head>
 
     <body>
-        
-        
-        <nav class="bg-light border navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                
-                <a class="navbar-brand" href="/">
-                    <img src="/static/favicon.png" width="50px" height="50px" alt="">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    {% if session.get("user_id") %}
-                        <ul class="nav nav-underline ms-auto">
-                            <li class="nav-item"><a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="/"><i class="bi bi-house-door"></i>Home</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person"></i>Account
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear"></i>Profile details</a></li>
-                                    <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i>Log out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <ul class="nav nav-underline ms-auto">
-                            <li class="nav-item "><a class="nav-link {% if active_page == 'login' %}active{% endif %}" href="/login"><i class="bi bi-box-arrow-in-right"></i>Sign in</a></li>
-                            <li class="nav-item"><a class="nav-link {% if active_page == 'register' %}active{% endif %}"href="/register"><i class="bi bi-person-plus"></i>Sign up</a></li>
-                        </ul>
-                    {% endif %}
-                </div>
+        <div>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Menu</h5>
             </div>
-        </nav>
+        <div class="offcanvas-body">
+            <ul class="nav nav-pills flex-column gap-1">
+                <li class="nav-item">
+                    <a class="nav-link {% if active_page=='tasks' %}active{% endif %}" href="/tasks">Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_page=='completed' %}active{% endif %}" href="/completed">Completed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_page=='create' %}active{% endif %}" href="/tasks/new">New task</a>
+                </li>
+                <hr class="my-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person"></i>Account
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear"></i>Profile details</a></li>
+                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right"></i>Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </div>
 
-
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} text-center" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <main>
-                {% block main %}{% endblock %}
-        </main>
+        <div class="container py-5 d-flex justify-content-center">
+                {% block div %}{% endblock %}
+        </div>
 
     </body>
 </html>

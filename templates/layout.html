@@ -31,7 +31,7 @@
 
         <div class="offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Menu</h5>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Doit</h5>
             </div>
         <div class="offcanvas-body">
             <ul class="nav nav-pills flex-column gap-1">
@@ -44,7 +44,7 @@
                 <li class="nav-item">
                     <a class="nav-link {% if active_page=='create' %}active{% endif %}" href="/tasks/new">New task</a>
                 </li>
-                <hr class="my-2">
+                <hr class="my-1">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person"></i>Account
@@ -58,9 +58,12 @@
         </div>
         </div>
 
-        <div class="container py-5 d-flex justify-content-center">
+        <main class="main-content">
+            <div class="container py-5 d-flex justify-content-center">
                 {% block div %}{% endblock %}
         </div>
+        </main>
+        
 
     </body>
 </html>

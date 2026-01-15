@@ -14,7 +14,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure SQLite3 to access database
-conn = sqlite3.connect("public-reader.db", isolation_level=None, check_same_thread=False)
+conn = sqlite3.connect("app.db", isolation_level=None, check_same_thread=False)
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
@@ -67,7 +67,7 @@ def register():
 
             # Redirect to home page
             flash("Registration successful!", "success")
-            return redirect("/")
+            return redirect("/tasks")
 
         
 @app.route("/login", methods=["GET", "POST"])
@@ -106,19 +106,30 @@ def login():
 
             # Redirect to home page
             flash("Login successful!", "success")
-            return redirect("/")
+            return redirect("/tasks")
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/tasks", methods=["GET", "POST"])
 @login_required
-def index():
-    """Display home page"""
+def tasks():
+    """Display ongoing tasks"""
 
     # Store user's data
     user_id = session.get("user_id")
-    users = cur.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
+    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 0", (user_id,)).fetchall()
 
-    return render_template("index.html", users=users, active_page='home')
+    return render_template("tasks.html", tasks=tasks, active_page='tasks')
+
+@app.route("/completed", methods=["GET", "POST"])
+@login_required
+def completed():
+    """Display completed tasks"""
+
+    # Store user's data
+    user_id = session.get("user_id")
+    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 1", (user_id,)).fetchall()
+
+    return render_template("completed.html", tasks=tasks, active_page='completed')
 
 @app.route("/logout")
 @login_required

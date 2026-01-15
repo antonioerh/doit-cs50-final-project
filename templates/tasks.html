@@ -5,5 +5,26 @@
 {% endblock %}
 
 {% block div %}
-    <h3>test</h3>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th class="text-start">Tasks</th>
+                <th class="text-center">Due date</th>
+                <th class="text-end">Done</th>
+            </tr> 
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td class="text-start">{{ task.title }}</td>
+                <td class="text-center">{{ task.due_date }}</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-outline-success rounded-circle">
+                        <i class="bi bi-check"></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

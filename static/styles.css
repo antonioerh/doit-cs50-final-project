@@ -1,3 +1,7 @@
+:root {
+  --sidebar-width: 320px;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -39,3 +43,17 @@ a > img {
 .dropdown-menu {
     --bs-dropdown-link-active-bg: black;
 }
+
+#offcanvasScrolling {
+  width: var(--sidebar-width);
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+}
+
+.offcanvas.offcanvas-start {
+    background-color: #f8f8f8;
+    width: var(--sidebar-width)
+}
+

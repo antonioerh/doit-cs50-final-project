@@ -7,7 +7,7 @@ body {
 }
 
 .bi {
-    margin-right: 7px;
+    margin-right: 6px;
 }
 
 .nav-link {
@@ -16,14 +16,6 @@ body {
 
 .nav-link.active {
     font-weight: var(--bs-nav-link-font-weight) !important;
-}
-
-a > img {
-    margin-left: 10px;
-}
-
-.nav-item {
-    padding: 5px;
 }
 
 .nav-underline .nav-link {
@@ -41,7 +33,7 @@ a > img {
 }
 
 .dropdown-menu {
-    --bs-dropdown-link-active-bg: black;
+    --bs-dropdown-link-active-bg: #0D6EFD;
 }
 
 #offcanvasScrolling {
@@ -55,5 +47,9 @@ a > img {
 .offcanvas.offcanvas-start {
     background-color: #f8f8f8;
     width: var(--sidebar-width)
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #0D6EFD;
 }
 

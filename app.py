@@ -131,6 +131,19 @@ def completed():
 
     return render_template("completed.html", tasks=tasks, active_page='completed')
 
+@app.route("/new", methods=["GET", "POST"])
+@login_required
+def new():
+    """Create new task"""
+
+    # Store user's data
+    user_id = session.get("user_id")
+
+    if request.method == "GET":
+        return render_template("new.html", tasks=tasks, active_page='new')
+    else:
+        
+
 @app.route("/logout")
 @login_required
 def logout():

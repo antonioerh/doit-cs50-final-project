@@ -16,6 +16,7 @@ body {
 
 .nav-link.active {
     font-weight: var(--bs-nav-link-font-weight) !important;
+    border-radius: 20px;
 }
 
 .nav-underline .nav-link {
@@ -45,8 +46,9 @@ body {
 }
 
 .offcanvas.offcanvas-start {
-    background-color: #f8f8f8;
-    width: var(--sidebar-width)
+    width: var(--sidebar-width);
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {

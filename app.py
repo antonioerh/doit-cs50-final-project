@@ -1,9 +1,9 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify , url_for 
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-import datetime
+from datetime import datetime, date
 import sqlite3
-from helpers import check_email, login_required, check_birth
+from helpers import check_email, login_required, check_date
 
 # Configure application
 app = Flask(__name__)
@@ -67,7 +67,7 @@ def register():
 
             # Redirect to home page
             flash("Registration successful!", "success")
-            return redirect("/tasks")
+            return redirect("/")
 
         
 @app.route("/login", methods=["GET", "POST"])
@@ -106,19 +106,38 @@ def login():
 
             # Redirect to home page
             flash("Login successful!", "success")
-            return redirect("/tasks")
+            return redirect("/")
 
 
-@app.route("/tasks", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def tasks():
     """Display ongoing tasks"""
 
     # Store user's data
     user_id = session.get("user_id")
-    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 0", (user_id,)).fetchall()
+    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 0 ORDER BY due_date", (user_id,)).fetchall()
 
     return render_template("tasks.html", tasks=tasks, active_page='tasks')
+
+@app.post("/toggle")
+def toggle_task():
+    task_id = request.form["task_id"]
+    done = 1
+    today = date.today()
+
+    cur.execute("UPDATE tasks SET is_done = ?, completed_at = ? WHERE id = ?", (done, today, task_id))
+    return redirect(url_for("tasks"))
+
+@app.route("/task/<int:task_id>")
+@login_required
+def task(task_id):
+    row = cur.execute("SELECT title, description FROM tasks WHERE id = ? AND user_id = ?",(task_id, session["user_id"])).fetchone()
+
+    if not row:
+        return jsonify({"error": "not found"}), 404
+
+    return jsonify({"title": row["title"], "description": row["description"]})
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
@@ -127,7 +146,7 @@ def completed():
 
     # Store user's data
     user_id = session.get("user_id")
-    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 1", (user_id,)).fetchall()
+    tasks = cur.execute("SELECT * FROM tasks WHERE user_id = ? AND is_done == 1 ORDER BY completed_at DESC", (user_id,)).fetchall()
 
     return render_template("completed.html", tasks=tasks, active_page='completed')
 
@@ -140,9 +159,27 @@ def new():
     user_id = session.get("user_id")
 
     if request.method == "GET":
-        return render_template("new.html", tasks=tasks, active_page='new')
+        return render_template("new.html", active_page='new')
     else:
-        
+        # Store user's input and current date
+        title = request.form.get("title")
+        description = request.form.get("description")
+        due = request.form.get("due")
+        today = date.today()
+
+        # Check if title input is not blank
+        if not title:
+            flash("Invalid title", "danger")
+            return redirect("/new")
+        # Check if due date input is not blank or not valid
+        elif not due or not check_date(due) or due < str(today):
+            flash("Invalid due date", "danger")
+            return redirect("/new")
+        else:
+            # Insert new task into the database
+            cur.execute("INSERT INTO tasks (user_id, title, description, due_date) VALUES (?, ?, ?,?)", (user_id, title, description, due))
+            return redirect("/")
+
 
 @app.route("/logout")
 @login_required
@@ -206,7 +243,7 @@ def profile():
             if not check_password_hash(users["hash"], password):
                 flash("Invalid password", "danger")
                 return redirect("/profile")
-            elif not check_birth(birth):
+            elif not check_date(birth):
                 flash("Invalid birth", "danger")
                 return redirect("/profile")
             elif birth != users["birth"]:

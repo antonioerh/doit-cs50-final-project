@@ -1,30 +1,63 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Completed
+    Tasks
 {% endblock %}
 
 {% block div %}
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th class="text-start">Tasks</th>
-                <th class="text-center">Due date</th>
-                <th class="text-end">Done</th>
-            </tr> 
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td class="text-start">{{ task.title }}</td>
-                <td class="text-center">{{ task.due_date }}</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-outline-success rounded-circle">
-                        <i class="bi bi-check"></i>
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if tasks %}
+        <table class="table table-striped table-sm">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4">Tasks</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Due date</th>
+                    <th class="text-center pe-4">Done</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td class="ps-4">{{ task.title }}</td>
+                    <td class="text-center"><button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#descModal" data-task-id="{{ task.id }}">View</button></td>
+                    <td class="text-center">{{ task.due_date }}</td>
+                    <td class="text-center pe-4">
+                    <form action="{{ url_for('toggle_task') }}" method="post" class="d-inline">
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+
+                            <div class="form-check d-inline-flex justify-content-end m-0">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="t{{ task.id }}"
+                                    name="done"
+                                    value="1"
+                                    onchange="this.form.submit()"
+                                    {% if task.done %}checked{% endif %}>
+                            </div>
+                        </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="descModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="descTitle">Loading...</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" id="descBody">Loading...</div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 text-muted">
+            <i class="bi bi-check2-circle fs-1 mb-1"></i>
+            <h5>No ongoing tasks yet</h5>
+            <p class="small mb-3">You're all caught up. Add a new task.</p>
+            <a href="/new" class="btn btn-primary btn-sm">+ New task</a>
+        </div>
+    {% endif %}
 {% endblock %}

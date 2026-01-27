@@ -11,12 +11,7 @@ body {
 }
 
 .nav-link.active {
-    font-weight: var(--bs-nav-link-font-weight) !important;
     border-radius: 20px;
-}
-
-.nav-underline .nav-link {
-    color: black;
 }
 
 .form-control:focus {
@@ -43,7 +38,11 @@ body {
     border-right: 1px solid #e9ecef;
 }
 
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     background-color: #0D6EFD;
 }
-

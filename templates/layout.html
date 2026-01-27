@@ -18,35 +18,45 @@
     </head>
 
     <body>
-        
 
         <div class="offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Doit</h5>
-            </div>
-        <div class="offcanvas-body">
-            <ul class="nav nav-pills flex-column gap-1">
-                <li class="nav-item">
-                    <a class="nav-link {% if active_page=='tasks' %}active{% endif %}" href="/"><i class="bi bi-clipboard fs-5 me-2"></i>Tasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if active_page=='completed' %}active{% endif %}" href="/completed"><i class="bi bi-clipboard-check fs-5 me-2"></i>Completed</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if active_page=='new' %}active{% endif %}" href="/new"><i class="bi bi-clipboard-plus fs-5 me-2"></i>New task</a>
-                </li>
-                <hr class="my-1">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person fs-5 me-2"></i>Account
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear fs-5 me-2"></i>Profile details</a></li>
-                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right fs-5 me-2"></i>Log out</a></li>
+            <div class="offcanvas-body">
+                <div class="mb-1">
+                    <a class="navbar-brand" href="/">
+                        <img src="/static/favicon.png" alt="Doit" width="50px" height="auto">
+                </a>
+                </div>
+                
+                <ul class="nav nav-pills flex-column gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page=='tasks' %}active{% endif %}" href="/"><i class="bi bi-clipboard fs-5 me-2"></i>Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page=='completed' %}active{% endif %}" href="/completed"><i class="bi bi-clipboard-check fs-5 me-2"></i>Completed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page=='new' %}active{% endif %}" href="/new"><i class="bi bi-clipboard-plus fs-5 me-2"></i>New task</a>
+                    </li>
+                </ul>    
+                
+                <div class="mt-auto">
+                    <hr>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person fs-5 me-2"></i>Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear fs-5 me-2"></i>Profile details</a></li>
+                                <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right fs-5 me-2"></i>Log out</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-            </ul>
-        </div>
+                    
+                </div>
+                    
+                
+            </div>
         </div>
 
         <main class="main-content">

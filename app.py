@@ -119,21 +119,35 @@ def tasks():
 
 @app.post("/toggle")
 def toggle_task():
+    """Mark task as completed"""
+
+    # Get task id from form
     task_id = request.form["task_id"]
+
+    # Mark task as done
     done = 1
     today = date.today()
 
+    # Update task status and completion date
     cur.execute("UPDATE tasks SET is_done = ?, completed_at = ? WHERE id = ?", (done, today, task_id))
-    return redirect(url_for("tasks"))
 
+    # Redirect back to tasks page
+    return redirect("/")
+
+# AI
 @app.route("/task/<int:task_id>")
 @login_required
 def task(task_id):
+    """Get task details"""
+
+    # Get task title and description
     row = cur.execute("SELECT title, description FROM tasks WHERE id = ? AND user_id = ?",(task_id, session["user_id"])).fetchone()
 
+    # Return 404 if task does not exist
     if not row:
         return jsonify({"error": "not found"}), 404
 
+    # Return task data as JSON
     return jsonify({"title": row["title"], "description": row["description"]})
 
 @app.route("/completed", methods=["GET", "POST"])
@@ -260,13 +274,3 @@ def profile():
         # Show a success message to the user
         flash("Changes saved successfully", "success")
         return redirect("/profile")
-
-
-
-
-    
-
-
-
-    
-

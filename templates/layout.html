@@ -27,22 +27,22 @@
         <div class="offcanvas-body">
             <ul class="nav nav-pills flex-column gap-1">
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page=='tasks' %}active{% endif %}" href="/">Tasks</a>
+                    <a class="nav-link {% if active_page=='tasks' %}active{% endif %}" href="/"><i class="bi bi-clipboard fs-5 me-2"></i>Tasks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page=='completed' %}active{% endif %}" href="/completed">Completed</a>
+                    <a class="nav-link {% if active_page=='completed' %}active{% endif %}" href="/completed"><i class="bi bi-clipboard-check fs-5 me-2"></i>Completed</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page=='new' %}active{% endif %}" href="/new">New task</a>
+                    <a class="nav-link {% if active_page=='new' %}active{% endif %}" href="/new"><i class="bi bi-clipboard-plus fs-5 me-2"></i>New task</a>
                 </li>
                 <hr class="my-1">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {% if active_page == 'profile' %}active{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person"></i>Account
+                        <i class="bi bi-person fs-5 me-2"></i>Account
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear"></i>Profile details</a></li>
-                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right"></i>Log out</a></li>
+                        <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear fs-5 me-2"></i>Profile details</a></li>
+                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right fs-5 me-2"></i>Log out</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,17 +50,16 @@
         </div>
 
         <main class="main-content">
-            <div>
-                {% with messages = get_flashed_messages(with_categories=True) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} text-center" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade text-center shadow-sm show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <div class="container py-5 d-flex justify-content-center">
                 {% block div %}{% endblock %}
             </div>

@@ -5,12 +5,23 @@
 {% endblock %}
 
 {% block div %}
+    <div class="container py-4">
     {% if tasks %}
-        <table class="table table-striped table-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h4 fw-semibold mb-1">Tasks</h1>
+                <p class="text-muted small mb-0">Your ongoing tasks</p>
+            </div>
+            <a href="/new" class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-lg me-1"></i> New task
+            </a>
+        </div>
+
+        <table class="table table-hover">
             <thead class="table-light">
                 <tr>
                     <th class="ps-4">Tasks</th>
-                    <th class="text-center">Description</th>
+                    <th class="text-center">Details</th>
                     <th class="text-center">Due date</th>
                     <th class="text-center pe-4">Done</th>
                 </tr> 
@@ -60,4 +71,5 @@
             <a href="/new" class="btn btn-primary btn-sm">+ New task</a>
         </div>
     {% endif %}
+    </div>
 {% endblock %}

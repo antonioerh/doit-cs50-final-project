@@ -10,35 +10,30 @@
         <div class="col-12 col-md-8 col-lg-5">
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4 p-md-5">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h4 fw-semibold mb-0">New task</h1>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h3 class="fw-normal">New task</h3>
                     </div>
 
                     <form action="/new" method="post" class="vstack gap-3">
                         <div class="form-floating">
                             <input id="title" class="form-control" name="title" placeholder="Title" required type="text" maxlength="80" autofocus>
-                            <label for="title">Title</label>
+                            <label for="floatingInput">Title</label>
                         </div>
 
                         <div class="form-floating">
-                            <textarea id="description" class="form-control" name="description"
-                                      placeholder="Description" style="height: 110px" maxlength="280"></textarea>
-                            <label for="description">Description (optional)</label>
+                            <textarea id="description" class="form-control" name="description" placeholder="Description" style="height: 110px" maxlength="280"></textarea>
+                            <label for="floatingInput">Description (optional)</label>
                         </div>
 
                         <div class="form-floating">
-                            <input id="due" class="form-control" name="due" placeholder="Due date" type="date">
-                            <label for="due">Due date</label>
+                            <input id="due" class="form-control" name="due" placeholder="Due date" type="text">
+                            <label for="floatingInput">Due date</label>
                         </div>
 
-                        <button class="btn btn-primary btn-lg w-100" type="submit">
-                            Create task
-                        </button>
+                        <button class="btn btn-primary btn-lg w-100" type="submit">Create task</button>
                     </form>
 
-                    <p class="text-muted small mt-3 mb-0">
-                        Tip: keep titles short. You can add details in the description.
-                    </p>
+                    <p class="text-muted small mt-3 mb-0">Tip: keep titles short. You can add details in the description.</p>
                 </div>
             </div>
         </div>

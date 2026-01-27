@@ -74,9 +74,6 @@ def register():
 def login():
     """Log user in"""
 
-    # Forget any user_id
-    session.clear()
-
     if request.method == "GET":
         return render_template("login.html", active_page='login')
 

@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block div %}
+    <div class="container py-4">
     {% if tasks %}
-        <table class="table table-striped table-sm">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h4 fw-semibold mb-1">Tasks</h1>
+                <p class="text-muted small mb-0">Your completed tasks</p>
+            </div>
+            <a href="/new" class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-lg me-1"></i> New task
+            </a>
+        </div>    
+
+        <table class="table table-hover">
             <thead class="table-light">
                 <tr>
                     <th class="ps-4">Tasks</th>
+                    <th class="text-center">Details</th>
                     <th class="text-center pe-4">Completed at</th>
                 </tr> 
             </thead>
@@ -17,12 +29,31 @@
                 {% for task in tasks %}
                 <tr>
                     <td class="ps-4">{{ task.title }}</td>
+                    <td class="text-center"><button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#descModal" data-task-id="{{ task.id }}">View</button></td>
                     <td class="text-center pe-4">{{ task.completed_at }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="modal fade" id="descModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="descTitle">Loading...</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" id="descBody">Loading...</div>
+                </div>
+            </div>
+        </div>
     {% else %}
-        <p class="text-muted">No completed tasks yet</p>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 text-muted">
+            <i class="bi bi-check2-circle fs-1 mb-1"></i>
+            <h5>No completed tasks yet</h5>
+            <p class="small mb-3">When you complete a task, it will show up here.</p>
+            <a href="/" class="btn btn-primary btn-sm"><i class="bi bi-list-task me-1"></i>Ongoing tasks</a>
+        </div>
     {% endif %}
+    </div>
 {% endblock %}

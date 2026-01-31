@@ -39,7 +39,7 @@ While the application is fully functional, there are several features I would lo
 
 ### File Structure
 
-- `app.py`: The main controller of the application. It initializes the Flask app, configures the SQLite database, and contains all the route definitions (`/completed`, `/login`, `/register`, `/new`, `/profile`, `/`.) and the logic for handling POST/GET requests.
+- `app.py`: The main controller of the application. It initializes the Flask app, configures the SQLite database, and contains all the route definitions (`/completed`, `/login`, `/register`, `/new`, `/profile`, `/`) and the logic for handling POST/GET requests.
 - `app.db`: The SQLite database file containing tables for `users` and `tasks`.
 - `requirements.txt`: Lists all Python libraries required to run the project.
 - `static/`: Contains static assets.

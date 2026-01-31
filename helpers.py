@@ -8,8 +8,8 @@ def check_email(identifier):
     else:
         return False
 
-def check_date(birth):
-    if re.match(r"^\d{4}-\d{2}-\d{2}$", birth):
+def check_date(date):
+    if re.match(r"^\d{4}-\d{2}-\d{2}$", date):
         return True
     else:
         return False

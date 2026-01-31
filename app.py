@@ -13,6 +13,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+# AI Usage: ChatGPT was used as a learning aid to understand how to work with SQLite using Python’s sqlite3 module without using the CS50 library.
 # Configure SQLite3 to access database
 conn = sqlite3.connect("app.db", isolation_level=None, check_same_thread=False)
 conn.row_factory = sqlite3.Row
@@ -117,6 +118,7 @@ def tasks():
 
     return render_template("tasks.html", tasks=tasks, active_page='tasks')
 
+# AI usage: ChatGPT helped me understand how to implement this route logic
 @app.post("/toggle")
 def toggle_task():
     """Mark task as completed"""
@@ -134,7 +136,7 @@ def toggle_task():
     # Redirect back to tasks page
     return redirect("/")
 
-# AI
+# AI usage: ChatGPT helped me understand how to fetch task details safely
 @app.route("/task/<int:task_id>")
 @login_required
 def task(task_id):
@@ -190,7 +192,6 @@ def new():
             # Insert new task into the database
             cur.execute("INSERT INTO tasks (user_id, title, description, due_date) VALUES (?, ?, ?,?)", (user_id, title, description, due))
             return redirect("/")
-
 
 @app.route("/logout")
 @login_required
